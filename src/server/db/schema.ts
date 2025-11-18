@@ -1,10 +1,63 @@
 import { integer, sqliteTable } from "drizzle-orm/sqlite-core";
 import { createId } from "@paralleldrive/cuid2";
-import { text } from "drizzle-orm/sqlite-core";
+import { text, primaryKey } from "drizzle-orm/sqlite-core";
+import { relations } from "drizzle-orm";
 
 export const example = sqliteTable("example", {
   id: integer("id").primaryKey({ autoIncrement: true }),
 });
+
+export const bounty = sqliteTable("bounty",{
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()), 
+  image: text("image").notNull(),
+  date: integer("created", {mode: "timestamp"}).notNull(),
+  msg: text("message"),
+
+
+})
+
+//Relation bountyRelations 
+export const bountyRelations = relations(bounty, ({many}) => ({
+  bountiesToPersons: many(bountiesToPersons),
+}))
+
+export const person = sqliteTable("person",{
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()), 
+  name: text("name").notNull(),
+})
+
+//Relation Person relations
+export const personRelations = relations(person,({many}) => ({
+  bountiesToPersons: many(bountiesToPersons),
+}))
+export const bountiesToPersons = sqliteTable("bounties_to_persons", {
+  bountyId: integer("bountyId")
+    .notNull()
+    .references(() => bounty.id),
+  personId: integer("person_id")
+    .notNull()
+    .references(() => person.id),
+},
+(t) => [
+  primaryKey({columns: [t.bountyId,t.personId]})
+],
+
+);
+export const bountiesToPersonsRelations = relations(bountiesToPersons, ({one}) => ({
+  bounty: one(bounty, {
+    fields: [bountiesToPersons.bountyId],
+    references: [bounty.id],
+  }),
+  person: one(person,{
+    fields: [bountiesToPersons.personId],
+    references: [person.id],
+  }),
+}) );
+
 
 export const user = sqliteTable("user", {
   id: text("id")
