@@ -4,6 +4,8 @@ import { useTRPC } from "@/lib/trpc-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { signInOptions } from "@/lib/auth-client";
 import { Plus } from "lucide-react";
+import { Leaderboard } from "@/components/leaderboard";
+import { Bounty } from "@/components/bounty";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -39,13 +41,15 @@ function App() {
   return (
     <div>
       <h1 className="flex justify-center text-7xl m-2 "> Hit List</h1>
-      <h1 className="flex justify-center text-5xl m-2">Leaderboard</h1>
-      <h1 className="flex justify-center text-5xl m-2">Add Yours</h1>
-
+      <Leaderboard></Leaderboard>
+      <div className="flex items-center justify-start flex-col gap-4">
+        <Bounty />
+        <Bounty />
+      </div>
       <button
-        className="absolute right-10 bottom-10  
+        className="fixed right-10 bottom-10  
 flex justify-center text-2xl shadow-lg  rounded-full 
-h-12 w-12 items-center"
+h-12 w-12 items-center bg-slate-700 text-white"
       >
         <Plus />
       </button>
