@@ -59,6 +59,7 @@ export const appRouter = router({
       const offender = input.get("offender") as string;
       const image = input.get("image") as File;
       const timestamp = new Date(input.get("timestamp") as string);
+      const message = input.get("message") as string;
       if (!offender || !image || !timestamp) return null;
       await ctx.db.transaction(async (tx) => {
         await tx
@@ -82,12 +83,14 @@ export const appRouter = router({
           `${Date.now()}-${image.name}`,
           image,
         );
+
+        
         const bountyResult = await tx
           .insert(bounty)
           .values({
             date: timestamp,
             image: imageUrl.url,
-            msg: "",
+            msg: message,
           })
           .returning();
         const bountyId = bountyResult[0].id;

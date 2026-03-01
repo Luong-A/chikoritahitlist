@@ -45,7 +45,7 @@ function App() {
   console.log(test.data);
   return (
     <div>
-      <h1 className="flex justify-center text-7xl m-2 "> Hit List</h1>
+      <h1 className="flex justify-center text-7xl m-2 dark:text-white "> Hit List</h1>
       <Leaderboard></Leaderboard>
       <div className="flex items-center justify-start flex-col columns-3 gap-4">
         {bountyData.data?.map((bounty) => (
@@ -53,6 +53,7 @@ function App() {
             image={bounty.image}
             date={bounty.date}
             offenders={bounty.persons.join(", ")}
+            msg= {bounty.msg}
           />
         ))}
       </div>
