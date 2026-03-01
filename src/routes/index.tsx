@@ -6,6 +6,7 @@ import { signInOptions } from "@/lib/auth-client";
 import { Plus } from "lucide-react";
 import { Leaderboard } from "@/components/leaderboard";
 import { Bounty } from "@/components/bounty";
+import { CreateBounty } from "@/components/create-bounty";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -16,6 +17,7 @@ function App() {
   const userData = useQuery(trpc.getUser.queryOptions());
 
   const signIn = useMutation(signInOptions);
+  const test= useQuery(trpc.getLeaderboard.queryOptions());
 
   if (userData.isLoading) {
     return (
@@ -38,21 +40,20 @@ function App() {
       </div>
     );
   }
+
+  console.log(test.data);
   return (
     <div>
       <h1 className="flex justify-center text-7xl m-2 "> Hit List</h1>
       <Leaderboard></Leaderboard>
-      <div className="flex items-center justify-start flex-col gap-4">
+      <div className="flex items-center justify-start flex-col columns-3 gap-4">
+        <Bounty />
+        <Bounty />
+        <Bounty />
         <Bounty />
         <Bounty />
       </div>
-      <button
-        className="fixed right-10 bottom-10  
-flex justify-center text-2xl shadow-lg  rounded-full 
-h-12 w-12 items-center bg-slate-700 text-white"
-      >
-        <Plus />
-      </button>
-    </div>
+      <CreateBounty></CreateBounty>
+          </div>
   );
 }

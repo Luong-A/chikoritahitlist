@@ -27,7 +27,7 @@ export const person = sqliteTable("person",{
   id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()), 
-  name: text("name").notNull(),
+  name: text("name").notNull().unique(),
 })
 
 //Relation Person relations
@@ -35,10 +35,10 @@ export const personRelations = relations(person,({many}) => ({
   bountiesToPersons: many(bountiesToPersons),
 }))
 export const bountiesToPersons = sqliteTable("bounties_to_persons", {
-  bountyId: integer("bountyId")
+  bountyId: text("bountyId")
     .notNull()
     .references(() => bounty.id),
-  personId: integer("person_id")
+  personId: text("person_id")
     .notNull()
     .references(() => person.id),
 },

@@ -47,7 +47,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="bg-slate-800">
+      <body className="bg-kbackgroundlight dark:bg-kbackgrounddark">
         {children}
         <Scripts />
       </body>
