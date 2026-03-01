@@ -16,8 +16,9 @@ function App() {
   const trpc = useTRPC();
   const userData = useQuery(trpc.getUser.queryOptions());
 
+  const bountyData = useQuery(trpc.getBounties.queryOptions());
   const signIn = useMutation(signInOptions);
-  const test= useQuery(trpc.getLeaderboard.queryOptions());
+  const test = useQuery(trpc.getLeaderboard.queryOptions());
 
   if (userData.isLoading) {
     return (
@@ -47,13 +48,15 @@ function App() {
       <h1 className="flex justify-center text-7xl m-2 "> Hit List</h1>
       <Leaderboard></Leaderboard>
       <div className="flex items-center justify-start flex-col columns-3 gap-4">
-        <Bounty />
-        <Bounty />
-        <Bounty />
-        <Bounty />
-        <Bounty />
+        {bountyData.data?.map((bounty) => (
+          <Bounty
+            image={bounty.image}
+            date={bounty.date}
+            offenders={bounty.persons.join(", ")}
+          />
+        ))}
       </div>
       <CreateBounty></CreateBounty>
-          </div>
+    </div>
   );
 }

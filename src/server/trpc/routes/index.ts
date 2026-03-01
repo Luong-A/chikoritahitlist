@@ -13,8 +13,38 @@ export const appRouter = router({
     .use(extractAuth)
     .query(({ ctx }) => ctx.user ?? null),
 
-  getBounties: authedProcedure.query(({ ctx }) => {
-    return ctx.db.select().from(bounty);
+  getBounties: authedProcedure.query(async ({ ctx }) => {
+    const data = await ctx.db
+      .select()
+      .from(bounty)
+      .leftJoin(bountiesToPersons, eq(bounty.id, bountiesToPersons.bountyId))
+      .leftJoin(person, eq(person.id, bountiesToPersons.personId));
+
+    type bountyType = {
+      id: string;
+      image: string;
+      date: Date;
+      msg: string;
+      persons: string[];
+    };
+    const groupedData: Record<string, bountyType> = {};
+
+    data.forEach(({ bounty, person }) => {
+      if (!groupedData[bounty.id]) {
+        groupedData[bounty.id] = {
+          id: bounty.id,
+          image: bounty.image,
+          date: bounty.date,
+          msg: bounty.msg ?? "",
+          persons: [],
+        };
+      }
+      if (person) {
+        groupedData[bounty.id].persons.push(person.name);
+      }
+    });
+
+    return Object.values(groupedData);
   }),
 
   getPersons: authedProcedure.query(({ ctx }) => {
