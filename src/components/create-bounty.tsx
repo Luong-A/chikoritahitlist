@@ -90,7 +90,7 @@ export const CreateBounty: React.FC = () => {
         }}
         className="fixed right-10 bottom-10  
 flex justify-center text-2xl shadow-lg  rounded-full 
-h-12 w-12 items-center bg-kprimarylight text-black dark:bg-kprimarydark dark:text-black hover:bg-ksecondarydark"
+h-12 w-12 items-center bg-kprimarylight text-black hover:bg-ksecondarydark"
       >
         <Plus />
       </button>

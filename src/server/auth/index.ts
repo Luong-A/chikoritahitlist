@@ -21,4 +21,5 @@ export const auth = betterAuth({
       generateId: false,
     },
   },
+  trustedOrigins: [process.env.APP_URL!],
 });

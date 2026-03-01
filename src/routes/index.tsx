@@ -1,9 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import logo from "../logo.svg";
 import { useTRPC } from "@/lib/trpc-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { signInOptions } from "@/lib/auth-client";
-import { Plus } from "lucide-react";
 import { Leaderboard } from "@/components/leaderboard";
 import { Bounty } from "@/components/bounty";
 import { CreateBounty } from "@/components/create-bounty";
@@ -30,13 +28,16 @@ function App() {
 
   if (!userData.data) {
     return (
-      <div className="text-center ">
-        <h1 className="mt-5 pt-4 text-5xl">Chikorita HitList</h1>
+      <div className="flex items-center justify-center flex-col gap-4">
+        <h1 className="mt-5 pt-4 text-5xl text-kbackgrounddark font-bold">
+          Chikorita Hit List
+        </h1>
+        <img src="chikorita.png" />
         <button
-          className="bg-amber-500 rounded-2xl border-b p-2 px-3"
+          className="bg-amber-500 rounded-2xl border-b p-2 px-12 cursor-pointer text-white text-2xl font-bold active:border-0 active:translate-y-1 transition-all"
           onClick={() => signIn.mutateAsync()}
         >
-          Sign In{" "}
+          Sign In
         </button>
       </div>
     );
@@ -45,19 +46,22 @@ function App() {
   console.log(test.data);
   return (
     <div>
-      <h1 className="flex justify-center text-7xl m-2 dark:text-white "> Hit List</h1>
-      <Leaderboard name="" count={0}></Leaderboard>
+      <h1 className="flex justify-center text-7xl m-2 dark:text-white ">
+        {" "}
+        Hit List
+      </h1>
+      <Leaderboard></Leaderboard>
       <div className="flex items-center justify-start flex-col columns-3 gap-4">
         {bountyData.data?.map((bounty) => (
           <Bounty
             image={bounty.image}
             date={bounty.date}
             offenders={bounty.persons.join(", ")}
-            msg= {bounty.msg}
+            msg={bounty.msg}
           />
         ))}
       </div>
-      <CreateBounty></CreateBounty>
+      <CreateBounty />
     </div>
   );
 }
