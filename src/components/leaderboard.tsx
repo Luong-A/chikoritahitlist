@@ -7,16 +7,24 @@ export const Leaderboard: React.FC = () => {
   const leaderboardData = useQuery(trpc.getLeaderboard.queryOptions());
   return (
     <div className="flex flex-col justify-center">
-      <h3 className="flex justify-center text-5xl text-ktextlight ">
+      <h3 className="flex justify-center text-5xl text-ktextlight p-3 ">
         Leaderboard
       </h3>
-
-      {leaderboardData.data?.map(({ count, name }) => (
-        <div className="  self-center border flex justify-between justify-items-center  p-1 text-xl m-6 gap-5 w-2xl ">
-          <p>{name}</p>
-          <p>{count}</p>
-        </div>
-      ))}
+      <table className="table-auto mt-5 text-2xl">
+        <tr>
+          <th className="justify-items-start">Name</th>
+          <th>Count</th>
+        </tr>
+        {leaderboardData.data?.map(({ count, name }) => (
+          <tr className="m-3 p-3 ">
+            <td className="p-2 m-3">{name}</td>
+            <td className=" p-2 m-3 justify-items-center text-center">
+              {count}
+            </td>
+          </tr>
+        ))}
+      </table>
+      <hr className="m-5"></hr>
     </div>
   );
 };
