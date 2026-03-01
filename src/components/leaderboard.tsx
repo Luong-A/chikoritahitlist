@@ -7,7 +7,7 @@ export const Leaderboard: React.FC = () => {
   const leaderboardData = useQuery(trpc.getLeaderboard.queryOptions());
   return (
     <div className="flex flex-col justify-center">
-      <h3 className="flex justify-center text-5xl text-ktextlight dark:text-ktextdark">
+      <h3 className="flex justify-center text-5xl text-ktextlight ">
         Leaderboard
       </h3>
 

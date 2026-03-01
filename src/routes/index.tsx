@@ -45,13 +45,10 @@ function App() {
 
   console.log(test.data);
   return (
-    <div>
-      <h1 className="flex justify-center text-7xl m-2 dark:text-white ">
-        {" "}
-        Hit List
-      </h1>
+    <div className="flex flex-col items-center">
+      <h1 className="flex justify-center text-7xl m-2 font-bold "> Hit List</h1>
       <Leaderboard></Leaderboard>
-      <div className="flex items-center justify-start flex-col columns-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-10 w-fit p-4 py-12">
         {bountyData.data?.map((bounty) => (
           <Bounty
             image={bounty.image}
