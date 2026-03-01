@@ -10,10 +10,10 @@ export const CreateBounty: React.FC = () => {
 
   return (
     <>
-      <div
-        className={`w-screen h-screen transition-colors ${isOpen ? "bg-black/50" : "bg-transparent"} fixed top-0 left-0`}
-      >
-        {isOpen && (
+      {isOpen && (
+        <div
+          className={`w-screen h-screen transition-colors ${isOpen ? "bg-black/50" : "bg-transparent"} fixed top-0 left-0`}
+        >
           <div className=" focus:outline-lime-200 flex-col w-lg h-md fixed p-10 top-80  right-125  flex justify-center justify-items-center border bg-kprimarylight text-themetext-800 dark:bg-kprimarydark rounded-3xl shadow-md  dark:shadow-darkprimary-800 ">
             <button
               className="hover:text-ksecondarylight justify-center justify-items-center flex pb-2 select-none"
@@ -82,8 +82,8 @@ export const CreateBounty: React.FC = () => {
               </button>
             </form>
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <button
         onClick={() => {
           setIsOpen(true);

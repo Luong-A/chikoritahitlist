@@ -1,7 +1,7 @@
 import { bountiesToPersons, bounty, person } from "@/server/db/schema";
 import { authedProcedure, extractAuth } from "../middleware/auth-middleware";
 import { publicProcedure, router } from "../trpc-config";
-import { count, eq, inArray } from "drizzle-orm";
+import { count, desc, eq, inArray } from "drizzle-orm";
 import { CreateBounty } from "@/components/create-bounty";
 import { z } from "zod";
 import { r2Client, uploadObject } from "@/lib/r2";
@@ -114,7 +114,8 @@ export const appRouter = router({
       })
       .from(person)
       .leftJoin(bountiesToPersons, eq(person.id, bountiesToPersons.personId))
-      .groupBy(person.id);
+      .groupBy(person.id)
+      .orderBy(desc(count(bountiesToPersons.bountyId)));
   }),
 });
 

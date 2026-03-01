@@ -46,7 +46,7 @@ function App() {
   return (
     <div>
       <h1 className="flex justify-center text-7xl m-2 dark:text-white "> Hit List</h1>
-      <Leaderboard></Leaderboard>
+      <Leaderboard name="" count={0}></Leaderboard>
       <div className="flex items-center justify-start flex-col columns-3 gap-4">
         {bountyData.data?.map((bounty) => (
           <Bounty
