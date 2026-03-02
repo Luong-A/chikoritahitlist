@@ -1,12 +1,16 @@
 import { useTRPC, useTRPCClient } from "@/lib/trpc-client";
 import { useMutation } from "@tanstack/react-query";
-import { Plus, X } from "lucide-react";
-import { useState } from "react";
+import { Image, Plus, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const CreateBounty: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const trpc = useTRPC();
   const createBounty = useMutation(trpc.createBounty.mutationOptions());
+  const [filename, setFilename] = useState<string>("");
+  const [offender, setOffender] = useState<string>("");
+  const [timestamp, setTimestamp] = useState<Date | null>(null);
+  const [message, setMessage] = useState<string>("");
 
   return (
     <>
@@ -14,9 +18,9 @@ export const CreateBounty: React.FC = () => {
         <div
           className={`w-screen h-screen transition-colors ${isOpen ? "bg-black/50" : "bg-transparent"} fixed top-0 left-0`}
         >
-          <div className=" focus:outline-lime-200 flex-col w-lg h-md fixed p-10 top-80  right-125  flex justify-center justify-items-center border bg-kprimarylight text-themetext-800  rounded-3xl shadow-md   ">
+          <div className=" focus:outline-lime-200 flex-col left-1/2 top-1/2 -translate-1/2 w-lg h-md fixed p-10 flex justify-center justify-items-center bg-kprimarylight text-themetext-800  rounded-3xl shadow-md   ">
             <button
-              className="hover:text-ksecondarylight justify-center justify-items-center flex pb-2 select-none"
+              className="hover:text-ksecondarylight justify-center cursor-pointer justify-items-center flex select-none ml-auto -mt-4 -mr-4 -mb-4"
               onClick={() => {
                 setIsOpen(false);
               }}
@@ -38,45 +42,68 @@ export const CreateBounty: React.FC = () => {
                 formdata.append("message", message);
                 console.log(formdata);
                 createBounty.mutate(formdata);
+
+                setFilename("");
+                setOffender("");
+                setTimestamp(null);
+                setMessage("");
               }}
-              className="flex-col flex gap-2"
+              className="gap-6 grid grid-cols-3 p-4"
             >
               {/* Thinking about sanitizing */}
-              <div className="flex p-0.5 gap-2 m-2">
-                <label htmlFor="offender">Offender:</label>
+              <label htmlFor="offender">Offender:</label>
+              <input
+                className="focus:border-b-2 col-span-2 outline-0 ring-0 hover:bg-white/10 focus:bg-white/20 not-focus:mb-[1px] p-1 rounded border-b w-full"
+                id="offender"
+                onChange={(e) => setOffender(e.target.value)}
+                value={offender}
+              ></input>
+
+              <p>Image:</p>
+              <>
+                <label
+                  htmlFor="image"
+                  className="rounded border px-1 py-1 col-span-2 flex gap-1 hover:bg-white/10 focus:bg-white/20 cursor-pointer"
+                >
+                  <Image />
+                  {filename ? filename : "Upload Image"}
+                </label>
                 <input
-                  className="focus:outline-1 focus:outline-kaccentlight rounded border-b w-full"
-                  id="offender"
-                ></input>
-              </div>
-              <div className="flex justify-between m-2">
-                <label htmlFor="image">Image:</label>
-                <input
-                  className="hover:text-kaccentlight"
+                  className="hidden"
                   id="image"
                   type="file"
-                ></input>
-              </div>
-              <div className="flex p-0.5 gap-2 m-2">
-                <label htmlFor="timestamp">Timestamp:</label>
-                <input
-                  className="hover:text-kaccentlight"
-                  id="timestamp"
-                  type="date"
-                ></input>
-              </div>
-              <div className="flex p-0.5 gap-2 m-2">
-                <label htmlFor="message">Message:</label>
+                  placeholder="balls"
+                  onChange={(e) => {
+                    const currName = e.target.files?.[0]?.name;
+                    setFilename(currName || "");
+                  }}
+                />
+              </>
 
-                <input
-                  className="hover:text-kaccentlight focus:outline-1 focus:outline-kaccentlight  rounded border-b w-full"
-                  id="message"
-                ></input>
-              </div>
+              <label htmlFor="timestamp">Timestamp:</label>
+              <input
+                className="hover:bg-white/10 col-span-2 cursor-text focus:bg-white/20 outline-0 ring-0 p-1 rounded border"
+                id="timestamp"
+                type="date"
+                onChange={(e) => setTimestamp(new Date(e.target.value))}
+                value={timestamp ? timestamp.toISOString().split("T")[0] : ""}
+              ></input>
+              <label htmlFor="message">Message:</label>
+
+              <input
+                className="focus:border-b-2 col-span-2 outline-0 ring-0 hover:bg-white/10 focus:bg-white/20 not-focus:mb-[1px] p-1 rounded border-b w-full"
+                id="message"
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+              ></input>
+
+              <div className="col-span-3" />
+              <div className="col-span-2 h-2" />
 
               <button
-                className="border rounded hover:text-kaccentlight "
+                className="border rounded hover:bg-white/10 focus:bg-white/20 px-2 py-1 disabled:bg-gray-600/20 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
                 type="submit"
+                disabled={!filename || !offender || !timestamp}
               >
                 Submit
               </button>

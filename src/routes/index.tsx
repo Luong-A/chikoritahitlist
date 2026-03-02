@@ -43,12 +43,15 @@ function App() {
     );
   }
 
-  console.log(test.data);
   return (
     <div className="flex flex-col items-center">
       <h1 className="flex justify-center text-7xl m-2 font-bold "> Hit List</h1>
       <Leaderboard></Leaderboard>
-      <div><h3 className="m-3 justify-center justify-items-center text-5xl">Gallery</h3></div>
+      <div>
+        <h3 className="m-3 justify-center justify-items-center text-5xl">
+          Gallery
+        </h3>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-10 w-fit p-4 py-12">
         {bountyData.data?.map((bounty) => (
           <Bounty
