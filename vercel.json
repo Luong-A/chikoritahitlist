@@ -1,4 +1,3 @@
 {
-  "buildCommand": "bun run build",
-  "framework": "other"
+  "buildCommand": "bun run build"
 }
