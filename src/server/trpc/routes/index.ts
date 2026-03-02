@@ -18,7 +18,8 @@ export const appRouter = router({
       .select()
       .from(bounty)
       .leftJoin(bountiesToPersons, eq(bounty.id, bountiesToPersons.bountyId))
-      .leftJoin(person, eq(person.id, bountiesToPersons.personId));
+      .leftJoin(person, eq(person.id, bountiesToPersons.personId))
+      .orderBy(desc(bounty.date));
 
     type bountyType = {
       id: string;
@@ -84,7 +85,6 @@ export const appRouter = router({
           image,
         );
 
-        
         const bountyResult = await tx
           .insert(bounty)
           .values({
