@@ -3,8 +3,8 @@ import { appRouter } from "@/server/trpc/routes";
 import { createContext } from "@/server/trpc/trpc-context";
 import { createFileRoute } from "@tanstack/react-router";
 
-function handler({ request }: { request: Request }) {
-  return fetchRequestHandler({
+async function handler({ request }: { request: Request }) {
+  return await fetchRequestHandler({
     req: request,
     router: appRouter,
     createContext: () => createContext(request),
