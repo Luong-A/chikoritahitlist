@@ -6,13 +6,10 @@ export const Leaderboard: React.FC = () => {
   const trpc = useTRPC();
   const leaderboardData = useQuery(trpc.getLeaderboard.queryOptions());
   return (
-    <div className="flex flex-col justify-center">
-      <h3 className="flex justify-center text-5xl text-ktextlight p-3 ">
-        Leaderboard
-      </h3>
+    <div className="flex flex-col justify-center w-2/5">
       <table className="table-auto mt-5 text-2xl">
         <tr>
-          <th className="justify-items-start">Name</th>
+          <th className="text-left">Name</th>
           <th>Count</th>
         </tr>
         {leaderboardData.data?.map(({ count, name }) => (
@@ -24,7 +21,7 @@ export const Leaderboard: React.FC = () => {
           </tr>
         ))}
       </table>
-      <hr className="m-5"></hr>
+      <hr className="my-5 w-full"></hr>
     </div>
   );
 };
