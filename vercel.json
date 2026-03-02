@@ -1,5 +1,4 @@
 {
   "buildCommand": "bun run build",
-  "framework": "other",
-  "public": "dist/client"
+  "framework": "other"
 }
