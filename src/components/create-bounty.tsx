@@ -47,9 +47,12 @@ import { bountyCreateSchema } from "@/server/db/schema";
 export const CreateBounty: React.FC = () => {
   const trpc = useTRPC();
   const createBounty = useMutation(trpc.createBounty.mutationOptions());
-  const offenders = useQuery(trpc.getOffenders.queryOptions()).data;
+  const createOffender = useMutation(trpc.createOffender.mutationOptions());
+  const offendersQuery = useQuery(trpc.getOffenders.queryOptions());
+  const offenders = offendersQuery.data;
   const [filename, setFilename] = useState("");
   const [open, setOpen] = useState(false);
+  const [offenderInput, setOffenderInput] = useState("");
 
   const form = useForm({
     defaultValues: {
@@ -123,6 +126,8 @@ h-12 w-12 items-center bg-kprimarylight text-black hover:bg-ksecondarydark borde
                         );
                         field.handleChange(selectedOffenders || []);
                       }}
+                      onInputValueChange={setOffenderInput}
+                      inputValue={offenderInput}
                       aria-invalid={isInvalid}
                     >
                       <ComboboxChips>
@@ -136,7 +141,27 @@ h-12 w-12 items-center bg-kprimarylight text-black hover:bg-ksecondarydark borde
                         <ComboboxChipsInput placeholder="Add Offender" />
                       </ComboboxChips>
                       <ComboboxContent className="bg-kprimarylight text-themetext-800">
-                        <ComboboxEmpty>No items found.</ComboboxEmpty>
+                        <ComboboxEmpty>
+                          <Button
+                            onClick={async () => {
+                              if (offenderInput.trim() === "") return;
+                              const newOffender =
+                                await createOffender.mutateAsync({
+                                  name: offenderInput.trim(),
+                                });
+
+                              await offendersQuery.refetch();
+
+                              field.handleChange([
+                                ...field.state.value,
+                                newOffender,
+                              ]);
+                              setOffenderInput("");
+                            }}
+                          >
+                            <Plus className="stroke-3" /> Add "{offenderInput}"
+                          </Button>
+                        </ComboboxEmpty>
                         <ComboboxList>
                           {(name) => (
                             <ComboboxItem key={`opt-${name}`} value={name}>

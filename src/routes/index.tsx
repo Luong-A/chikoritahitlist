@@ -59,6 +59,7 @@ function App() {
             date={bounty.date}
             offenders={bounty.persons.join(", ")}
             msg={bounty.msg}
+            key={bounty.id}
           />
         ))}
       </div>

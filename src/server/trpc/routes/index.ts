@@ -6,7 +6,8 @@ import {
 } from "@/server/db/schema";
 import { authedProcedure, extractAuth } from "../middleware/auth-middleware";
 import { publicProcedure, router } from "../trpc-config";
-import { count, desc, eq, inArray } from "drizzle-orm";
+import { count, desc, eq, inArray, isNotNull, not } from "drizzle-orm";
+import { z } from "zod";
 import { uploadObject } from "@/lib/r2";
 
 export const appRouter = router({
@@ -59,6 +60,22 @@ export const appRouter = router({
     return ctx.db.select().from(person);
   }),
 
+  createOffender: authedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      return (
+        await ctx.db
+          .insert(person)
+          .values(input)
+          .onConflictDoNothing()
+          .returning()
+      )[0];
+    }),
+
   createBounty: authedProcedure
     .input(bountyCreateSchema)
     .mutation(async ({ input, ctx }) => {
@@ -105,6 +122,7 @@ export const appRouter = router({
       })
       .from(person)
       .leftJoin(bountiesToPersons, eq(person.id, bountiesToPersons.personId))
+      .where(isNotNull(bountiesToPersons.bountyId))
       .groupBy(person.id)
       .orderBy(desc(count(bountiesToPersons.bountyId)));
   }),
