@@ -1,10 +1,13 @@
-import { bountiesToPersons, bounty, person } from "@/server/db/schema";
+import {
+  bountiesToPersons,
+  bounty,
+  bountyCreateSchema,
+  person,
+} from "@/server/db/schema";
 import { authedProcedure, extractAuth } from "../middleware/auth-middleware";
 import { publicProcedure, router } from "../trpc-config";
 import { count, desc, eq, inArray } from "drizzle-orm";
-import { CreateBounty } from "@/components/create-bounty";
-import { z } from "zod";
-import { r2Client, uploadObject } from "@/lib/r2";
+import { uploadObject } from "@/lib/r2";
 
 export const appRouter = router({
   test: publicProcedure.query(async () => "Hi from the server!"),
@@ -12,6 +15,10 @@ export const appRouter = router({
   getUser: publicProcedure
     .use(extractAuth)
     .query(({ ctx }) => ctx.user ?? null),
+
+  getOffenders: authedProcedure.query(({ ctx }) => {
+    return ctx.db.select().from(person);
+  }),
 
   getBounties: authedProcedure.query(async ({ ctx }) => {
     const data = await ctx.db
@@ -53,48 +60,32 @@ export const appRouter = router({
   }),
 
   createBounty: authedProcedure
-    .input(z.instanceof(FormData))
+    .input(bountyCreateSchema)
     .mutation(async ({ input, ctx }) => {
-      console.log("create boundtyyy");
-      console.log(input);
-      const offender = input.get("offender") as string;
-      const image = input.get("image") as File;
-      const timestamp = new Date(input.get("timestamp") as string);
-      const message = input.get("message") as string;
-      if (!offender || !image || !timestamp) return null;
       await ctx.db.transaction(async (tx) => {
-        await tx
-          .insert(person)
-          .values(
-            offender.split(",").map((name) => {
-              return {
-                name,
-              };
-            }),
-          )
-          .onConflictDoNothing()
-          .returning();
-
+        await tx.insert(person).values(input.offenders).onConflictDoNothing();
         const peoples = await tx
           .select()
           .from(person)
-          .where(inArray(person.name, offender.split(",")));
-
+          .where(
+            inArray(
+              person.name,
+              input.offenders.map((o) => o.name),
+            ),
+          );
         const imageUrl = await uploadObject(
-          `${Date.now()}-${image.name}`,
-          image,
+          `${Date.now()}-${input.image.name}`,
+          input.image,
         );
-
         const bountyResult = await tx
           .insert(bounty)
           .values({
-            date: timestamp,
+            date: input.created,
             image: imageUrl.url,
-            msg: message,
+            msg: input.message,
           })
           .returning();
         const bountyId = bountyResult[0].id;
-
         await tx.insert(bountiesToPersons).values(
           peoples.map((p) => {
             return {
