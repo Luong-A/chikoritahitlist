@@ -21,10 +21,7 @@ export const bountyCreateSchema = z.object({
   offenders: z
     .array(z.object({ name: z.string(), id: z.string() }))
     .nonempty("At least one offender is required."),
-  image: z
-    .file()
-    .refine((file) => file instanceof File, "Image is required.")
-    .refine((file) => file.type.startsWith("image/")),
+  image: z.url(),
   created: z
     .date()
     .refine((date) => date <= new Date(), "Date cannot be in the future."),

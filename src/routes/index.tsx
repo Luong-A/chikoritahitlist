@@ -14,9 +14,14 @@ function App() {
   const trpc = useTRPC();
   const userData = useQuery(trpc.getUser.queryOptions());
 
-  const bountyData = useQuery(trpc.getBounties.queryOptions());
+  const bountyDataQuery = useQuery(trpc.getBounties.queryOptions());
+  const leaderboardDataQuery = useQuery(trpc.getLeaderboard.queryOptions());
   const signIn = useMutation(signInOptions);
-  const test = useQuery(trpc.getLeaderboard.queryOptions());
+
+  const onNewBounty = () => {
+    bountyDataQuery.refetch();
+    leaderboardDataQuery.refetch();
+  };
 
   if (userData.isLoading) {
     return (
@@ -46,14 +51,14 @@ function App() {
   return (
     <div className="flex flex-col items-center">
       <h1 className="flex justify-center text-7xl m-2 font-bold "> Hit List</h1>
-      <Leaderboard></Leaderboard>
+      <Leaderboard data={leaderboardDataQuery.data ?? []}></Leaderboard>
       <div>
         <h3 className="m-3 justify-center justify-items-center text-5xl">
           Gallery
         </h3>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-10 w-fit p-4 py-12">
-        {bountyData.data?.map((bounty) => (
+        {bountyDataQuery.data?.map((bounty) => (
           <Bounty
             image={bounty.image}
             date={bounty.date}
@@ -63,7 +68,7 @@ function App() {
           />
         ))}
       </div>
-      <CreateBounty />
+      <CreateBounty onNewBounty={onNewBounty} />
     </div>
   );
 }
