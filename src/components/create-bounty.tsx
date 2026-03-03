@@ -1,7 +1,7 @@
 import { useTRPC } from "@/lib/trpc-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Image, Plus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   Dialog,
@@ -42,11 +42,28 @@ import {
   ComboboxList,
   ComboboxValue,
 } from "@/components/ui/combobox";
-import { bountyCreateSchema } from "@/server/db/schema";
+import { z } from "zod";
 
-export const CreateBounty: React.FC = () => {
+export const bountyFormSchema = z.object({
+  offenders: z
+    .array(z.object({ name: z.string(), id: z.string() }))
+    .nonempty("At least one offender is required."),
+  image: z
+    .file()
+    .refine((file) => file instanceof File, "Image is required.")
+    .refine((file) => file.type.startsWith("image/"), "File must be an image."),
+  created: z
+    .date()
+    .refine((date) => date <= new Date(), "Date cannot be in the future."),
+  message: z.string().max(255, "Message must be at most 255 characters."),
+});
+
+export const CreateBounty: React.FC<{ onNewBounty: () => void }> = ({
+  onNewBounty,
+}) => {
   const trpc = useTRPC();
   const createBounty = useMutation(trpc.createBounty.mutationOptions());
+  const uploadImage = useMutation(trpc.uploadImage.mutationOptions());
   const createOffender = useMutation(trpc.createOffender.mutationOptions());
   const offendersQuery = useQuery(trpc.getOffenders.queryOptions());
   const offenders = offendersQuery.data;
@@ -56,27 +73,51 @@ export const CreateBounty: React.FC = () => {
 
   const form = useForm({
     defaultValues: {
-      image: new File([], ""),
+      image: {} as File,
       created: new Date(),
       message: "",
       offenders: [] as { name: string; id: string }[],
     },
     validators: {
-      onSubmit: bountyCreateSchema,
+      onSubmit: bountyFormSchema,
     },
     onSubmit: async ({ value }) => {
-      createBounty.mutate(value, {
-        onSuccess: () => {
-          form.reset();
-          setFilename("");
-          setOpen(false);
-          toast.success("Bounty created successfully!");
-        },
-        onError: (error) => {
-          toast.error("Failed to create bounty. Please try again.");
-          console.error("Error creating bounty:", error);
-        },
-      });
+      try {
+        // If user provided a File, upload it first to get a public URL
+        let imageUrl = "";
+        const file = value.image as File;
+        if (file && file.name) {
+          const arr = new Uint8Array(await file.arrayBuffer());
+          let binary = "";
+          for (let i = 0; i < arr.byteLength; i++)
+            binary += String.fromCharCode(arr[i]);
+          const b64 = btoa(binary);
+          const uploaded = await uploadImage.mutateAsync({
+            name: file.name,
+            data: b64,
+            type: file.type || "application/octet-stream",
+          });
+          imageUrl = uploaded.url;
+        }
+
+        const payload = { ...value, image: imageUrl };
+        createBounty.mutate(payload, {
+          onSuccess: () => {
+            form.reset();
+            setFilename("");
+            onNewBounty();
+            toast.success("Bounty created successfully!");
+            setOpen(false);
+          },
+          onError: (error) => {
+            toast.error("Failed to create bounty. Please try again.");
+            console.error("Error creating bounty:", error);
+          },
+        });
+      } catch (err) {
+        toast.error("Failed to upload image or create bounty.");
+        console.error("Create bounty error:", err);
+      }
     },
   });
 
@@ -96,12 +137,7 @@ h-12 w-12 items-center bg-kprimarylight text-black hover:bg-ksecondarydark borde
         <DialogHeader>
           <DialogTitle>Official Chikorita Form:</DialogTitle>
         </DialogHeader>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
-          }}
-        >
+        <form>
           <FieldGroup>
             <form.Field
               name="offenders"
@@ -226,6 +262,7 @@ h-12 w-12 items-center bg-kprimarylight text-black hover:bg-ksecondarydark borde
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
+                        maxLength={255}
                         placeholder="Get Chikorita'd!"
                         rows={6}
                         className="min-h-24 resize-none"
@@ -300,6 +337,7 @@ h-12 w-12 items-center bg-kprimarylight text-black hover:bg-ksecondarydark borde
               type="submit"
               form="bug-report-form"
               className="bg-ksecondarylight text-kprimarylight"
+              onClick={() => form.handleSubmit()}
               disabled={
                 !form.state.errors ||
                 form.state.isSubmitting ||

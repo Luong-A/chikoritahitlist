@@ -6,8 +6,9 @@ import {
 } from "@/server/db/schema";
 import { authedProcedure, extractAuth } from "../middleware/auth-middleware";
 import { publicProcedure, router } from "../trpc-config";
-import { count, desc, eq, inArray, isNotNull, not } from "drizzle-orm";
+import { asc, count, desc, eq, inArray, isNotNull } from "drizzle-orm";
 import { z } from "zod";
+import { Buffer } from "buffer";
 import { uploadObject } from "@/lib/r2";
 
 export const appRouter = router({
@@ -76,6 +77,23 @@ export const appRouter = router({
       )[0];
     }),
 
+  uploadImage: authedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        data: z.string(), // base64
+        type: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      // convert base64 to Blob and upload to R2
+      const buffer = Buffer.from(input.data, "base64");
+      const blob = new Blob([buffer], { type: input.type });
+      const key = `${Date.now()}-${input.name}`;
+      const res = await uploadObject(key, blob);
+      return res; // { url }
+    }),
+
   createBounty: authedProcedure
     .input(bountyCreateSchema)
     .mutation(async ({ input, ctx }) => {
@@ -90,15 +108,11 @@ export const appRouter = router({
               input.offenders.map((o) => o.name),
             ),
           );
-        const imageUrl = await uploadObject(
-          `${Date.now()}-${input.image.name}`,
-          input.image,
-        );
         const bountyResult = await tx
           .insert(bounty)
           .values({
             date: input.created,
-            image: imageUrl.url,
+            image: input.image,
             msg: input.message,
           })
           .returning();
@@ -124,7 +138,7 @@ export const appRouter = router({
       .leftJoin(bountiesToPersons, eq(person.id, bountiesToPersons.personId))
       .where(isNotNull(bountiesToPersons.bountyId))
       .groupBy(person.id)
-      .orderBy(desc(count(bountiesToPersons.bountyId)));
+      .orderBy(desc(count(bountiesToPersons.bountyId)), asc(person.name));
   }),
 });
 
