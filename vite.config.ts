@@ -4,23 +4,23 @@ import viteReact from "@vitejs/plugin-react";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 const config = defineConfig({
-  plugins: [
-    // this is the plugin that enables path aliases
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
-    }),
-    tailwindcss(),
-    tanstackStart(),
-    viteReact(),
-    {
-      name: "load-env",
-      enforce: "pre",
-      configResolved(config) {
-        Object.assign(process.env, loadEnv(config.mode, config.root, ""));
-      },
+  plugins: [// this is the plugin that enables path aliases
+  viteTsConfigPaths({
+    projects: ["./tsconfig.json"],
+  }), tailwindcss(), tanstackStart(), viteReact(), {
+    name: "load-env",
+    enforce: "pre",
+    configResolved(config) {
+      Object.assign(process.env, loadEnv(config.mode, config.root, ""));
     },
-  ],
+  }, cloudflare({
+    viteEnvironment: {
+      name: "ssr"
+    }
+  })],
 });
 
 export default config;
