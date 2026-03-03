@@ -10,7 +10,7 @@ export const Leaderboard: React.FC = () => {
       <table className="table-auto mt-5 text-2xl">
         <thead>
           <tr>
-            <th className="text-left">Name</th>
+            <th className="text-left pl-2">Name</th>
             <th>Count</th>
           </tr>
         </thead>
