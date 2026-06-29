@@ -8,6 +8,17 @@ export const example = sqliteTable("example", {
   id: integer("id").primaryKey({ autoIncrement: true }),
 });
 
+export const season = sqliteTable("season", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  name: text("name").notNull().unique(),
+  startDate: integer("start_date", { mode: "timestamp" }).notNull(),
+  endDate: integer("end_date", { mode: "timestamp" }).notNull(),
+  isActive: integer("is_active", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+});
+
 export const bounty = sqliteTable("bounty", {
   id: text("id")
     .primaryKey()
@@ -69,6 +80,10 @@ export const bountiesToPersonsRelations = relations(
     }),
   }),
 );
+
+export const seasonRelations = relations(season, ({ many }) => ({
+  bounties: many(bounty),
+}));
 
 export const user = sqliteTable("user", {
   id: text("id")

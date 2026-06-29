@@ -3,10 +3,21 @@ import {
   bounty,
   bountyCreateSchema,
   person,
+  season,
 } from "@/server/db/schema";
 import { authedProcedure, extractAuth } from "../middleware/auth-middleware";
 import { publicProcedure, router } from "../trpc-config";
-import { asc, count, desc, eq, inArray, isNotNull } from "drizzle-orm";
+import {
+  asc,
+  count,
+  desc,
+  eq,
+  inArray,
+  isNotNull,
+  and,
+  gte,
+  lt,
+} from "drizzle-orm";
 import { z } from "zod";
 import { Buffer } from "buffer";
 import { uploadObject } from "@/lib/r2";
@@ -22,40 +33,69 @@ export const appRouter = router({
     return ctx.db.select().from(person);
   }),
 
-  getBounties: authedProcedure.query(async ({ ctx }) => {
-    const data = await ctx.db
-      .select()
-      .from(bounty)
-      .leftJoin(bountiesToPersons, eq(bounty.id, bountiesToPersons.bountyId))
-      .leftJoin(person, eq(person.id, bountiesToPersons.personId))
-      .orderBy(desc(bounty.date));
-
-    type bountyType = {
-      id: string;
-      image: string;
-      date: Date;
-      msg: string;
-      persons: string[];
-    };
-    const groupedData: Record<string, bountyType> = {};
-
-    data.forEach(({ bounty, person }) => {
-      if (!groupedData[bounty.id]) {
-        groupedData[bounty.id] = {
-          id: bounty.id,
-          image: bounty.image,
-          date: bounty.date,
-          msg: bounty.msg ?? "",
-          persons: [],
-        };
-      }
-      if (person) {
-        groupedData[bounty.id].persons.push(person.name);
-      }
-    });
-
-    return Object.values(groupedData);
+  getSeasons: authedProcedure.query(({ ctx }) => {
+    return ctx.db.select().from(season).orderBy(desc(season.startDate));
   }),
+
+  getBounties: authedProcedure
+    .input(
+      z.object({
+        seasonId: z.string().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const seasons = input.seasonId
+        ? await ctx.db
+            .select()
+            .from(season)
+            .where(eq(season.id, input.seasonId))
+        : [];
+
+      const selectedSeason = seasons[0];
+
+      let query = ctx.db
+        .select()
+        .from(bounty)
+        .leftJoin(bountiesToPersons, eq(bounty.id, bountiesToPersons.bountyId))
+        .leftJoin(person, eq(person.id, bountiesToPersons.personId));
+
+      if (selectedSeason) {
+        query = query.where(
+          and(
+            gte(bounty.date, selectedSeason.startDate),
+            lt(bounty.date, selectedSeason.endDate),
+          ),
+        );
+      }
+
+      const data = await query.orderBy(desc(bounty.date));
+
+      type bountyType = {
+        id: string;
+        image: string;
+        date: Date;
+        msg: string;
+        persons: string[];
+      };
+      const groupedData: Record<string, bountyType> = {};
+
+      data.forEach(({ bounty, person }) => {
+        if (!groupedData[bounty.id]) {
+          groupedData[bounty.id] = {
+            id: bounty.id,
+            image: bounty.image,
+            date: bounty.date,
+            msg: bounty.msg ?? "",
+            persons: [],
+          };
+        }
+        if (person) {
+          groupedData[bounty.id].persons.push(person.name);
+        }
+      });
+
+      return Object.values(groupedData);
+    }),
 
   getPersons: authedProcedure.query(({ ctx }) => {
     return ctx.db.select().from(person);
@@ -128,18 +168,69 @@ export const appRouter = router({
       });
     }),
 
-  getLeaderboard: authedProcedure.query(({ ctx }) => {
-    return ctx.db
-      .select({
-        name: person.name,
-        count: count(bountiesToPersons.bountyId),
-      })
-      .from(person)
-      .leftJoin(bountiesToPersons, eq(person.id, bountiesToPersons.personId))
-      .where(isNotNull(bountiesToPersons.bountyId))
-      .groupBy(person.id)
-      .orderBy(desc(count(bountiesToPersons.bountyId)), asc(person.name));
-  }),
+  getLeaderboard: authedProcedure
+    .input(
+      z.object({
+        seasonId: z.string().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const seasons = input.seasonId
+        ? await ctx.db
+            .select()
+            .from(season)
+            .where(eq(season.id, input.seasonId))
+        : [];
+
+      const selectedSeason = seasons[0];
+
+      let query = ctx.db
+        .select({
+          name: person.name,
+          count: count(bountiesToPersons.bountyId),
+        })
+        .from(person)
+        .leftJoin(bountiesToPersons, eq(person.id, bountiesToPersons.personId))
+        .leftJoin(bounty, eq(bountiesToPersons.bountyId, bounty.id))
+        .where(isNotNull(bountiesToPersons.bountyId))
+        .groupBy(person.id)
+        .orderBy(desc(count(bountiesToPersons.bountyId)), asc(person.name));
+
+      if (selectedSeason) {
+        query = query.where(
+          and(
+            gte(bounty.date, selectedSeason.startDate),
+            lt(bounty.date, selectedSeason.endDate),
+          ),
+        );
+      }
+
+      return query;
+    }),
+
+  createSeason: authedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        startDate: z.date(),
+        endDate: z.date(),
+        isActive: z.boolean().optional().default(false),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      return (
+        await ctx.db
+          .insert(season)
+          .values({
+            name: input.name,
+            startDate: input.startDate,
+            endDate: input.endDate,
+            isActive: input.isActive,
+            createdAt: new Date(),
+          })
+          .returning()
+      )[0];
+    }),
 });
 
 // Export type router type signature,

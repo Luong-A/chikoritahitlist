@@ -4,6 +4,8 @@ import { useTRPC } from "@/lib/trpc-client";
 import { Bounty } from "@/components/bounty";
 import { CreateBounty } from "@/components/create-bounty";
 import { AppShell } from "@/components/app-shell";
+import { SeasonTabs } from "@/components/season-tabs";
+import { useState } from "react";
 
 export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
@@ -11,7 +13,13 @@ export const Route = createFileRoute("/gallery")({
 
 function GalleryPage() {
   const trpc = useTRPC();
-  const bountyDataQuery = useQuery(trpc.getBounties.queryOptions());
+  const [selectedSeasonId, setSelectedSeasonId] = useState<string | undefined>(
+    undefined,
+  );
+
+  const bountyDataQuery = useQuery(
+    trpc.getBounties.queryOptions({ seasonId: selectedSeasonId }),
+  );
 
   const onNewBounty = () => {
     bountyDataQuery.refetch();
@@ -20,6 +28,16 @@ function GalleryPage() {
   return (
     <AppShell title="Hit List" desc="Browse the latest bounties.">
       <div className="mx-auto flex max-w-6xl flex-col gap-6">
+        <div className="rounded-2xl border border-kprimarylight/40 bg-white/70 p-4 shadow-sm">
+          <p className="mb-3 text-sm font-semibold text-slate-600">
+            Filter by Season
+          </p>
+          <SeasonTabs
+            selectedSeasonId={selectedSeasonId}
+            onSeasonChange={setSelectedSeasonId}
+          />
+        </div>
+
         <div className="grid grid-cols-1 gap-y-12 gap-x-10 md:grid-cols-2 lg:grid-cols-3">
           {bountyDataQuery.data?.map((bounty) => (
             <Bounty
