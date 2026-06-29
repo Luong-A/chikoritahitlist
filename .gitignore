@@ -11,3 +11,9 @@ count.txt
 .vinxi
 todos.json
 DEV_NOTES.md
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
