@@ -169,3 +169,110 @@ export const userProfileRelations = relations(userProfile, ({ one }) => ({
     references: [user.id],
   }),
 }));
+
+export const pickemPool = sqliteTable("pickem_pool", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  name: text("name").notNull(),
+  startsAt: integer("starts_at", { mode: "timestamp" }).notNull(),
+  endsAt: integer("ends_at", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+});
+
+export const pickemMatchup = sqliteTable("pickem_matchup", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  poolId: text("pool_id")
+    .notNull()
+    .references(() => pickemPool.id, { onDelete: "cascade" }),
+  question: text("question").notNull(),
+  teamA: text("team_a").notNull(),
+  teamB: text("team_b").notNull(),
+  startsAt: integer("starts_at", { mode: "timestamp" }).notNull(),
+});
+
+export const matchupOptions = sqliteTable("question_options", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  matchupId: text("matchup_id")
+    .notNull()
+    .references(() => pickemMatchup.id, { onDelete: "cascade" }),
+  optionText: text("option_text").notNull(),
+});
+
+export const questionsRelations = relations(pickemMatchup, ({ many }) => ({
+  options: many(matchupOptions),
+}));
+
+export const matchupOptionsRelations = relations(matchupOptions, ({ one }) => ({
+  matchup: one(pickemMatchup, {
+    fields: [matchupOptions.matchupId],
+    references: [pickemMatchup.id],
+  }),
+}));
+
+export const pickemEntry = sqliteTable("pickem_entry", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  poolId: text("pool_id")
+    .notNull()
+    .references(() => pickemPool.id, { onDelete: "cascade" }),
+  submittedAt: integer("submitted_at", { mode: "timestamp" }),
+  isLocked: integer("is_locked", { mode: "boolean" }).notNull().default(false),
+});
+
+export const pickemPick = sqliteTable(
+  "pickem_pick",
+  {
+    entryId: text("entry_id")
+      .notNull()
+      .references(() => pickemEntry.id, { onDelete: "cascade" }),
+    matchupId: text("matchup_id")
+      .notNull()
+      .references(() => pickemMatchup.id, { onDelete: "cascade" }),
+    selectedOption: text("selected_option").notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.entryId, t.matchupId] })],
+);
+
+export const pickemPoolRelations = relations(pickemPool, ({ many }) => ({
+  entries: many(pickemEntry),
+  matchups: many(pickemMatchup),
+}));
+
+export const pickemMatchupRelations = relations(pickemMatchup, ({ one }) => ({
+  pool: one(pickemPool, {
+    fields: [pickemMatchup.poolId],
+    references: [pickemPool.id],
+  }),
+}));
+
+export const pickemEntryRelations = relations(pickemEntry, ({ many, one }) => ({
+  pool: one(pickemPool, {
+    fields: [pickemEntry.poolId],
+    references: [pickemPool.id],
+  }),
+  user: one(user, {
+    fields: [pickemEntry.userId],
+    references: [user.id],
+  }),
+  picks: many(pickemPick),
+}));
+
+export const pickemPickRelations = relations(pickemPick, ({ one }) => ({
+  entry: one(pickemEntry, {
+    fields: [pickemPick.entryId],
+    references: [pickemEntry.id],
+  }),
+  matchup: one(pickemMatchup, {
+    fields: [pickemPick.matchupId],
+    references: [pickemMatchup.id],
+  }),
+}));

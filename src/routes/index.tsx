@@ -3,6 +3,7 @@ import { useTRPC } from "@/lib/trpc-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { signInOptions } from "@/lib/auth-client";
 import { AppShell } from "@/components/app-shell";
+import { Progress } from "@/components/ui/progress";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -81,6 +82,7 @@ function App() {
             </p>
           </Link>
         </div>
+         
       </div>
     </AppShell>
   );

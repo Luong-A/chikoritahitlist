@@ -18,9 +18,10 @@ import {
  * Implement later - featured things
  */
 const featuredItems = [
-    {title: "2026 Hit List Pick'ems", to: "/pickems2026"},
-    {title: "What's New?", to: "/updates"}
-]
+  { title: "2026 Hit List Pick'ems", to: "/pickems2026" },
+  { title: "Getting Started", to: "/gettingstarted" },
+  { title: "What's New?", to: "/updates" },
+];
 
 const navItems = [
   { title: "Home", to: "/" },
@@ -86,7 +87,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="px-4 py-4 text-sm text-muted-foreground bg-kprimarylight">
-        For Gaymers
+        Pew Pew Pew
       </SidebarFooter>
     </Sidebar>
   );

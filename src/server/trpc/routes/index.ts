@@ -4,6 +4,11 @@ import {
   bountyCreateSchema,
   person,
   season,
+  pickemPool,
+  pickemMatchup,
+  matchupOptions,
+  pickemEntry,
+  pickemPick,
 } from "@/server/db/schema";
 import { authedProcedure, extractAuth } from "../middleware/auth-middleware";
 import { publicProcedure, router } from "../trpc-config";
@@ -20,6 +25,7 @@ import {
 } from "drizzle-orm";
 import { z } from "zod";
 import { Buffer } from "buffer";
+import { TRPCError } from "@trpc/server";
 import { uploadObject } from "@/lib/r2";
 
 export const appRouter = router({
@@ -100,6 +106,158 @@ export const appRouter = router({
   getPersons: authedProcedure.query(({ ctx }) => {
     return ctx.db.select().from(person);
   }),
+
+  getPickemPools: authedProcedure.query(({ ctx }) => {
+    return ctx.db.select().from(pickemPool).orderBy(desc(pickemPool.startsAt));
+  }),
+
+  getPickemMatchups: authedProcedure
+    .input(
+      z.object({
+        poolId: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const rows = await ctx.db
+        .select({ matchup: pickemMatchup, option: matchupOptions })
+        .from(pickemMatchup)
+        .leftJoin(
+          matchupOptions,
+          eq(pickemMatchup.id, matchupOptions.matchupId),
+        )
+        .where(eq(pickemMatchup.poolId, input.poolId))
+        .orderBy(asc(pickemMatchup.startsAt), asc(matchupOptions.optionText));
+
+      const grouped: Record<
+        string,
+        {
+          id: string;
+          poolId: string;
+          question: string;
+          teamA: string;
+          teamB: string;
+          startsAt: Date;
+          options: string[];
+        }
+      > = {};
+
+      rows.forEach(({ matchup, option }) => {
+        if (!grouped[matchup.id]) {
+          grouped[matchup.id] = {
+            id: matchup.id,
+            poolId: matchup.poolId,
+            question: matchup.question,
+            teamA: matchup.teamA,
+            teamB: matchup.teamB,
+            startsAt: matchup.startsAt,
+            options: [],
+          };
+        }
+        if (option) {
+          grouped[matchup.id].options.push(option.optionText);
+        }
+      });
+
+      return Object.values(grouped);
+    }),
+
+  getMyPickemEntry: authedProcedure
+    .input(
+      z.object({
+        poolId: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const [entry] = await ctx.db
+        .select()
+        .from(pickemEntry)
+        .where(
+          and(
+            eq(pickemEntry.poolId, input.poolId),
+            eq(pickemEntry.userId, ctx.user!.id),
+          ),
+        );
+
+      if (!entry) {
+        return null;
+      }
+
+      const picks = await ctx.db
+        .select()
+        .from(pickemPick)
+        .where(eq(pickemPick.entryId, entry.id));
+
+      return {
+        entry,
+        picks,
+      };
+    }),
+
+  submitPick: authedProcedure
+    .input(
+      z.object({
+        poolId: z.string(),
+        matchupId: z.string(),
+        selectedOption: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.transaction(async (tx) => {
+        const [existingEntry] = await tx
+          .select()
+          .from(pickemEntry)
+          .where(
+            and(
+              eq(pickemEntry.poolId, input.poolId),
+              eq(pickemEntry.userId, ctx.user!.id),
+            ),
+          );
+
+        const now = new Date();
+
+        const entry = existingEntry
+          ? existingEntry
+          : (
+              await tx
+                .insert(pickemEntry)
+                .values({
+                  poolId: input.poolId,
+                  userId: ctx.user!.id,
+                  submittedAt: now,
+                })
+                .returning()
+            )[0];
+
+        if (entry.isLocked) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Pickset is locked for this entry.",
+          });
+        }
+
+        await tx
+          .delete(pickemPick)
+          .where(
+            and(
+              eq(pickemPick.entryId, entry.id),
+              eq(pickemPick.matchupId, input.matchupId),
+            ),
+          );
+
+        await tx.insert(pickemPick).values({
+          entryId: entry.id,
+          matchupId: input.matchupId,
+          selectedOption: input.selectedOption,
+        });
+
+        await tx
+          .update(pickemEntry)
+          .set({ submittedAt: now })
+          .where(eq(pickemEntry.id, entry.id));
+
+        return entry;
+      });
+    }),
 
   createOffender: authedProcedure
     .input(

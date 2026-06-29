@@ -11,11 +11,13 @@ export const Route = createFileRoute('/gettingstarted')({
 function RouteComponent() {
 
   return (
-  <AppShell title="Hit List" desc="Browse the latest bounties."
-  >
-    <div>
-      <SeasonManager></SeasonManager>
-    </div>
-  </AppShell>)
-  ;
+    <AppShell title="Getting Started" desc="We all start from somewhere">
+      <div className="justify-center">
+        <h1 className="text-center">YO IDK WHAT TO PUT</h1>
+        <section>Leaderbard</section>
+        <section>Bounty</section>
+        <section>Pickems</section>
+      </div>
+    </AppShell>
+  );
 }
