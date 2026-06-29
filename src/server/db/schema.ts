@@ -131,3 +131,26 @@ export const verification = sqliteTable("verification", {
   createdAt: integer("created_at", { mode: "timestamp" }),
   updatedAt: integer("updated_at", { mode: "timestamp" }),
 });
+
+export const userProfile = sqliteTable("user_profile", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  userId: text("user_id")
+    .notNull()
+    .unique()
+    .references(() => user.id, { onDelete: "cascade" }),
+  displayName: text("display_name"),
+  bio: text("bio"),
+  favoriteGame: text("favorite_game"),
+  currentBounty: integer("points"),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+});
+
+export const userProfileRelations = relations(userProfile, ({ one }) => ({
+  user: one(user, {
+    fields: [userProfile.userId],
+    references: [user.id],
+  }),
+}));

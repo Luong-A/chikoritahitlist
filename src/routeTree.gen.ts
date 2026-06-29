@@ -9,11 +9,53 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UpdatesRouteImport } from './routes/updates'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as Pickems2026RouteImport } from './routes/pickems2026'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as GettingstartedRouteImport } from './routes/gettingstarted'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiHealthcheckRouteImport } from './routes/api/healthcheck'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 
+const UpdatesRoute = UpdatesRouteImport.update({
+  id: '/updates',
+  path: '/updates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Pickems2026Route = Pickems2026RouteImport.update({
+  id: '/pickems2026',
+  path: '/pickems2026',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GettingstartedRoute = GettingstartedRouteImport.update({
+  id: '/gettingstarted',
+  path: '/gettingstarted',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +79,26 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/gallery': typeof GalleryRoute
+  '/gettingstarted': typeof GettingstartedRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/pickems2026': typeof Pickems2026Route
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
+  '/updates': typeof UpdatesRoute
   '/api/healthcheck': typeof ApiHealthcheckRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/gallery': typeof GalleryRoute
+  '/gettingstarted': typeof GettingstartedRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/pickems2026': typeof Pickems2026Route
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
+  '/updates': typeof UpdatesRoute
   '/api/healthcheck': typeof ApiHealthcheckRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
@@ -50,20 +106,68 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/gallery': typeof GalleryRoute
+  '/gettingstarted': typeof GettingstartedRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/pickems2026': typeof Pickems2026Route
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
+  '/updates': typeof UpdatesRoute
   '/api/healthcheck': typeof ApiHealthcheckRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/healthcheck' | '/api/auth/$' | '/api/trpc/$'
+  fullPaths:
+    | '/'
+    | '/gallery'
+    | '/gettingstarted'
+    | '/leaderboard'
+    | '/pickems2026'
+    | '/profile'
+    | '/settings'
+    | '/updates'
+    | '/api/healthcheck'
+    | '/api/auth/$'
+    | '/api/trpc/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/healthcheck' | '/api/auth/$' | '/api/trpc/$'
-  id: '__root__' | '/' | '/api/healthcheck' | '/api/auth/$' | '/api/trpc/$'
+  to:
+    | '/'
+    | '/gallery'
+    | '/gettingstarted'
+    | '/leaderboard'
+    | '/pickems2026'
+    | '/profile'
+    | '/settings'
+    | '/updates'
+    | '/api/healthcheck'
+    | '/api/auth/$'
+    | '/api/trpc/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/gallery'
+    | '/gettingstarted'
+    | '/leaderboard'
+    | '/pickems2026'
+    | '/profile'
+    | '/settings'
+    | '/updates'
+    | '/api/healthcheck'
+    | '/api/auth/$'
+    | '/api/trpc/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GalleryRoute: typeof GalleryRoute
+  GettingstartedRoute: typeof GettingstartedRoute
+  LeaderboardRoute: typeof LeaderboardRoute
+  Pickems2026Route: typeof Pickems2026Route
+  ProfileRoute: typeof ProfileRoute
+  SettingsRoute: typeof SettingsRoute
+  UpdatesRoute: typeof UpdatesRoute
   ApiHealthcheckRoute: typeof ApiHealthcheckRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
@@ -71,6 +175,55 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/updates': {
+      id: '/updates'
+      path: '/updates'
+      fullPath: '/updates'
+      preLoaderRoute: typeof UpdatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pickems2026': {
+      id: '/pickems2026'
+      path: '/pickems2026'
+      fullPath: '/pickems2026'
+      preLoaderRoute: typeof Pickems2026RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gettingstarted': {
+      id: '/gettingstarted'
+      path: '/gettingstarted'
+      fullPath: '/gettingstarted'
+      preLoaderRoute: typeof GettingstartedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +257,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GalleryRoute: GalleryRoute,
+  GettingstartedRoute: GettingstartedRoute,
+  LeaderboardRoute: LeaderboardRoute,
+  Pickems2026Route: Pickems2026Route,
+  ProfileRoute: ProfileRoute,
+  SettingsRoute: SettingsRoute,
+  UpdatesRoute: UpdatesRoute,
   ApiHealthcheckRoute: ApiHealthcheckRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
