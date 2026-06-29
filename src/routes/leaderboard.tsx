@@ -26,7 +26,7 @@ function LeaderboardPage() {
       desc="See who is currently leading the hit list."
     >
       <div className="mx-auto flex max-w-5xl flex-col gap-6">
-        <div className="rounded-2xl border border-kprimarylight/40 bg-white/70 p-4 shadow-sm">
+        <div className="rounded-2xl border border-kprimarylight/40 bg-ksecondarydark/20 p-4 shadow-sm">
           <p className="mb-3 text-sm font-semibold text-slate-600">
             Filter by Season
           </p>

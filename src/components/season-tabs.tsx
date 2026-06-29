@@ -22,13 +22,13 @@ export function SeasonTabs({
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2 ">
       <button
         onClick={() => onSeasonChange(undefined)}
         className={`rounded-full px-4 py-2 text-sm font-medium transition ${
           selectedSeasonId === undefined
             ? "bg-kprimarylight text-white"
-            : "border border-kprimarylight/40 bg-white text-slate-700 hover:bg-slate-50"
+            : "border border-kprimarylight/40 bg-white text-slate-700 hover:bg-ksecondarydark"
         }`}
       >
         All Time
@@ -41,7 +41,7 @@ export function SeasonTabs({
           className={`rounded-full px-4 py-2 text-sm font-medium transition ${
             selectedSeasonId === s.id
               ? "bg-kprimarylight text-white"
-              : "border border-kprimarylight/40 bg-white text-slate-700 hover:bg-slate-50"
+              : "border border-kprimarylight/40 bg-white text-slate-700 hover:bg-ksecondarydark"
           }`}
         >
           {s.name}
