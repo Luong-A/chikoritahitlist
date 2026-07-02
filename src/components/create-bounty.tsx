@@ -337,7 +337,9 @@ h-12 w-12 items-center bg-kprimarylight text-black hover:bg-ksecondarydark borde
               type="submit"
               form="bug-report-form"
               className="bg-ksecondarylight text-kprimarylight"
-              onClick={() => form.handleSubmit()}
+              onClick={() => {form.handleSubmit(); toast.success("Submitted Successfully", {
+                position: "bottom-center",
+              });}}
               disabled={
                 !form.state.errors ||
                 form.state.isSubmitting ||
@@ -348,6 +350,7 @@ h-12 w-12 items-center bg-kprimarylight text-black hover:bg-ksecondarydark borde
             >
               Submit
             </Button>
+
           </Field>
         </DialogFooter>
       </DialogContent>

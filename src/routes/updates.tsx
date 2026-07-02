@@ -26,7 +26,7 @@ function UpdateComponent() {
             "Google sign-in support",
             "Sidebar navigation shell",
             "Dedicated profile page",
-            "This page of course"
+            "This page of course",
           ]}
           changes={[
             "Home screen has been changed to be a landing page",
@@ -45,13 +45,40 @@ function UpdateComponent() {
             "Getting Started Page",
             "Dedicated profile page",
           ]}
+          changes={["None"]}
+          removals={["None"]}
+          notes="Not much for this update but I'm about to add the pickems. 
+          After seeing two updates together i think a visual rework for this page is needed. 
+          There is nothing right now in getting started but soon I'll populate these. "
+        />
+        <UpdatePost
+          date={new Date("2026-06-30")}
+          additions={[
+            "Pickems Questions",
+            "Getting Started Page",
+           
+          ]}
           changes={[
-            "None"
+            "Leaderboard Page changed to look a bit more busy rather than just a list",
           ]}
           removals={["None"]}
           notes="Not much for this update but I'm about to add the pickems. 
           After seeing two updates together i think a visual rework for this page is needed. 
           There is nothing right now in getting started but soon I'll populate these. "
+        />
+        <UpdatePost
+          date={new Date("2026-07-01")}
+          additions={[
+            "More Pickems Questions",
+            "Timer and feedback in Pickems",
+            "Minor Visual Update to Season Tabs",
+          ]}
+          changes={[
+            "Leaderboard Page overhaul",
+          ]}
+          removals={["None"]}
+          notes="I think in terms of what I can do visually I am done. Last major update this summer will likely be the Getting Started Page
+           and then all of you will be seeing this."
         />
       </div>
     </AppShell>

@@ -9,6 +9,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import type { TRPCClient } from "@trpc/client";
 import type { TRPCRouter } from "@/server/trpc/routes";
 import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
+import { Toaster } from "sonner";
 
 type RouterContext = {
   queryClient: QueryClient;
@@ -50,6 +51,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body className="min-h-screen bg-kbackgroundlight">
         {children}
         <Scripts />
+        <Toaster />
       </body>
     </html>
   );

@@ -27,7 +27,7 @@ export function SeasonTabs({
         onClick={() => onSeasonChange(undefined)}
         className={`rounded-full px-4 py-2 text-sm font-medium transition ${
           selectedSeasonId === undefined
-            ? "bg-kprimarylight text-white"
+            ? "bg-kprimarylight text-white shadow-md shadow-ksecondarylight"
             : "border border-kprimarylight/40 bg-white text-slate-700 hover:bg-ksecondarydark"
         }`}
       >
@@ -38,10 +38,10 @@ export function SeasonTabs({
         <button
           key={s.id}
           onClick={() => onSeasonChange(s.id)}
-          className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+          className={`rounded-full px-4 py-2 text-sm font-medium transition  ${
             selectedSeasonId === s.id
-              ? "bg-kprimarylight text-white"
-              : "border border-kprimarylight/40 bg-white text-slate-700 hover:bg-ksecondarydark"
+              ? "bg-kprimarylight text-white shadow-md shadow-ksecondarylight"
+              : "border border-kprimarylight/40 bg-white text-slate-700 hover:bg-ksecondarydark  "
           }`}
         >
           {s.name}

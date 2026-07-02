@@ -4,6 +4,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { signInOptions } from "@/lib/auth-client";
 import { AppShell } from "@/components/app-shell";
 import { Progress } from "@/components/ui/progress";
+import { Button } from "@base-ui/react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -82,6 +84,8 @@ function App() {
             </p>
           </Link>
         </div>
+         
+      
          
       </div>
     </AppShell>

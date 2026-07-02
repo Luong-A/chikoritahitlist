@@ -40,16 +40,16 @@ function ProfilePage() {
             </div>
           </div>
 
-          <div className="mt-8 rounded-2xl border border-dashed border-kprimarylight/40 bg-kbackgroundlight/70 p-6">
+          <div className="mt-8 rounded-2xl border border-dashed border-kprimarylight/40 bg-ksecondarydark p-6">
             <h3 className="font-semibold">Profile details</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-2 text-sm text-muted">
               Adding more things like points, pickems, and other account specific things.
             </p>
           </div>
 
           <div className="mt-6 flex gap-3">
             <button
-              className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-kprimarylight"
+              className="rounded-xl bg-ksecondarydark px-4 py-2 text-sm font-medium text-white transition hover:bg-kprimarylight"
               onClick={() => signOut.mutateAsync()}
             >
               Sign out

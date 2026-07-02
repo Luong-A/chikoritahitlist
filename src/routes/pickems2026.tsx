@@ -5,12 +5,18 @@ import { AppShell } from "@/components/app-shell";
 import { useTRPC } from "@/lib/trpc-client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
+import '../components/timer';
+import { BannerTimer } from "@/components/BannerTimer";
+
+
+
 
 export const Route = createFileRoute("/pickems2026")({
-  component: RouteComponent,
+  component: PickemsPage,
 });
 
-function RouteComponent() {
+function PickemsPage() {
   const trpc = useTRPC();
   const [poolId, setPoolId] = useState<string | undefined>(undefined);
   const [localSelected, setLocalSelected] = useState<Record<string, string>>(
@@ -47,6 +53,10 @@ function RouteComponent() {
       );
     }
   }, [entryQuery.data]);
+
+  useEffect(() => {
+    import("@/components/timer");
+  }, []);
 
   const submitPick = useMutation(trpc.submitPick.mutationOptions());
 
@@ -123,6 +133,11 @@ function RouteComponent() {
                 ) : null}
               </div>
             </div>
+            <BannerTimer
+              title="Pickems End"
+              startDate="2025-06-04T22:00:00-05:00"
+              endDate="2026-08-24T22:00:00-05:00"
+            ></BannerTimer>
           </section>
 
           <section className="space-y-6">
@@ -202,6 +217,13 @@ function RouteComponent() {
                                 poolId: poolId!,
                                 matchupId: matchup.id,
                                 selectedOption: option,
+                              });
+                              toast.success("Your choice has been saved!", {
+                                position: "bottom-right",
+                                className: "!bg-kprimarylight",
+                                description:
+                                  "You may continue to do your pickems. ",
+                                duration: 1500,
                               });
                             }}
                             disabled={!poolId}
