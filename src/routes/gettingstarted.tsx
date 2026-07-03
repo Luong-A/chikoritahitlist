@@ -176,7 +176,9 @@ function RouteComponent() {
               here. In the new site, I have <i>split</i> the Leaderboard and the
               Bounty pages as well as added a homepage just because I didn't
               really want to immediately see the leaderboard and bounty page
-              from login. Over the summer
+              from login. Over the summer I came up with the idea of a pickems
+              feature while watching MSI. Hopefully that feature will stay and I
+              talk about it in a later section.
             </p>
             <h1 className="text-xl text-ksecondarylight mt-3">Conclusion</h1>
             <hr className="mt-3 mb-2"></hr>
@@ -197,7 +199,9 @@ function RouteComponent() {
           </div>
         </section>
         <section id="Leaderboard" className="mt-6 scroll-mt-20">
-          <h3>Leaderboard</h3>
+          <h3 className="bg-ksecondarydark rounded-md flex justify-center justify-text-center pl-30 pr-30 pt-6 pb-6 m-3 text-3xl">
+            Leaderboard
+          </h3>
           Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
           faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi
           pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
