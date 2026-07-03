@@ -17,9 +17,9 @@ export function StickyTab({ currentTab, values, onTabSelect }: StickyTabProps) {
               onTabSelect(s);
               document!
                 .getElementById(s)!
-                .scrollIntoView({ behavior: "smooth" });
+                .scrollIntoView({ behavior: "smooth", block: "start" });
             }}
-            className={`bg-ksecondarydark rounded-md shadow-sm text-white hover:bg-kprimarylight ${
+            className={`bg-ksecondarydark transition-all delay-15 duration-300  rounded-sm shadow-sm text-white hover:bg-kprimarylight ${
               currentTab === s
                 ? "bg-ksecondarylight text-white shadow-md rounded-sm p-1 justify-text-center "
                 : "bg-amber-400"
