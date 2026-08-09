@@ -4,6 +4,7 @@ import { AppShell } from "@/components/app-shell";
 import { StickyTab } from "@/components/stickytabs";
 import { string } from "zod";
 import { useState, useEffect } from "react";
+import { DrawerSwipeHandle } from "@/components/update-drawer";
 
 export const Route = createFileRoute("/gettingstarted")({
   component: RouteComponent,
@@ -235,6 +236,7 @@ function RouteComponent() {
             <p className="h-200 bg-white rounded text-center"> Work in Progress...</p>
           </div>
         </section>
+      
       </div>
     </AppShell>
   );
