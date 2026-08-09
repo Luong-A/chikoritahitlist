@@ -74,15 +74,16 @@ function RouteComponent() {
             <p>
               This section of the page is just to introduce this project that I
               have and maybe to waste a little bit of your time. I kinda felt
-              like it would be weird to start a document with pure info so
-              hopefully this helps make the page look more seamless. Anyways, in
-              this page is a brief explainer of what the project is in case for
-              some reason I actually show people not in the know - plus some
-              extra stuff about each of the other pages within the site. Each
-              section talks about a different signifigant page and what the
-              purpose of each page is. For <i>certain reasons</i>, this article
-              looks <b>best</b> on <i>half-screen width</i> rather than full
-              because of the way I write.
+              like it would be weird to start a document with just pure info and
+              corpo speak so hopefully this helps make the page look more
+              seamless. Anyways, in this page is a brief explainer of what the
+              project is in case for some reason I actually show people not in
+              the know - plus some extra stuff about each of the other pages
+              within the site. Each section talks about a different signifigant
+              page and what the purpose of each page is. For{" "}
+              <i>certain reasons</i>, this article looks <b>best</b> on{" "}
+              <i>half-screen width</i> rather than full because of the way I
+              write.
             </p>
             <h1 className="text-xl text-ksecondarylight mt-3">Navigation</h1>
             <hr className="mt-3 mb-2"></hr>
@@ -127,7 +128,7 @@ function RouteComponent() {
               his mentorship, which was really me half understanding the
               intention behind all these different methods and frameworks and
               the other half just copying down what he told me to do. Speaking
-              of copying, the second GOAT who participated in the early stages
+              of copying, the second person who participated in the early stages
               of this site was our mutual friend{" "}
               <a
                 className="text-ksecondarylight"
@@ -199,329 +200,40 @@ function RouteComponent() {
           </div>
         </section>
         <section id="Leaderboard" className="mt-6 scroll-mt-20">
-          <h3 className="bg-ksecondarydark rounded-md flex justify-center justify-text-center pl-30 pr-30 pt-6 pb-6 m-3 text-3xl">
+          <h3 className="bg-ksecondarydark rounded-md flex justify-center justify-text-center pl-30 pr-30 pt-6 pb-6 m-3 text-3xl text-white">
             Leaderboard
           </h3>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
-          faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi
-          pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
-          tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
-          Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc
-          posuereLorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
-          faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi
-          pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
-          tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
-          Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere
+          <h3 className="bg-ksecondarydark rounded-md flex justify-center justify-text-center pl-30 pr-30 pt-6 pb-6 m-3 text-xl text-white">
+            Intro
+          </h3>
+          <p className="p-6 rounded-md bg-ksecondarylight/30 mt-3 ml-10 mr-10 ">
+            The Leaderboard keeps track of who has been caught the most with
+            chikorita. Currently the undisputed GOAT in this department is of
+            course Santiago (and appears to likely continue being this way
+            forever). You can use the tabs above to filter by the different
+            semesters that we had (which as of this time of writing is only 1.)
+            I don't know if you really want to be on the leaderboard it should
+            be more like a most wanted top 10 offenders board.
+          </p>
+          <div className=" items-center">
+            <p className="h-200 bg-white text-center"> Work in Progress...</p>
+          </div>
         </section>
         <section id="Bounty" className="mt-6 scroll-mt-20">
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
-          faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi
-          pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
-          tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
-          Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosquuisque faucibus ex
-          sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus
-          duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar
-          vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora to. Ad litora torquent per conubia
-          nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur
-          adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-          placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu
-          aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec
-          metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer
-          nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad
-          uisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora to litora
-          torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit
-          amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos.
+          <h3 className="bg-ksecondarydark rounded-md flex justify-center justify-text-center pl-30 pr-30 pt-6 pb-6 m-3 text-3xl text-white">
+            Bounty
+          </h3>
+          <div className=" items-center">
+            <p className="h-200 bg-white text-center"> Work in Progress...</p>
+          </div>
         </section>
         <section id="Pick" className="mt-6 scroll-mt-20">
-          PickemsLorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
-          faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi
-          pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
-          tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
-          Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus necuisque faucibus ex
-          sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus
-          duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar
-          vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora touisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora to metus bibendum egestas. Iaculis
-          massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper
-          vel class aptent taciti sociosqu. Ad litora torquent per conubia
-          nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur
-          adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-          placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu
-          aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec
-          metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer
-          nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad
-          litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum
-          dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien
-          vitae pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet
-          consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-          pellentesque sem placerat. In id cursus mi pretium tellus duis
-          convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-          fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-          malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-          aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-          himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-          Quisque faucibus ex sapien vitae pellentesque sem placerat. In id
-          cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-          urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-          egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut
-          hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent
-          per conubia nostra inceptos himenaeos.
+          <h3 className="bg-ksecondarydark rounded-md flex justify-center justify-text-center pl-30 pr-30 pt-6 pb-6 m-3 text-3xl text-white">
+            Pickems
+          </h3>
+          <div className=" items-center">
+            <p className="h-200 bg-white rounded text-center"> Work in Progress...</p>
+          </div>
         </section>
       </div>
     </AppShell>
