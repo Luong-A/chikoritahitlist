@@ -92,6 +92,9 @@ export const user = sqliteTable("user", {
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: integer("email_verified", { mode: "boolean" }).notNull(),
+  twoFactorEnabled: integer("two_factor_enabled", { mode: "boolean" })
+    .notNull()
+    .default(true),
   image: text("image"),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
@@ -145,6 +148,23 @@ export const verification = sqliteTable("verification", {
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
   createdAt: integer("created_at", { mode: "timestamp" }),
   updatedAt: integer("updated_at", { mode: "timestamp" }),
+});
+
+export const twoFactor = sqliteTable("two_factor", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  userId: text("user_id")
+    .notNull()
+    .unique()
+    .references(() => user.id, { onDelete: "cascade" }),
+  secret: text("secret").notNull(),
+  backupCodes: text("backup_codes").notNull(),
+});
+
+export const totpSettings = sqliteTable("totp_settings", {
+  id: integer("id").primaryKey().default(1),
+  totpSecret: text("totp_secret").notNull(),
 });
 
 export const userProfile = sqliteTable("user_profile", {

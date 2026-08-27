@@ -3,9 +3,7 @@ import { useTRPC } from "@/lib/trpc-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { signInOptions } from "@/lib/auth-client";
 import { AppShell } from "@/components/app-shell";
-import { Progress } from "@/components/ui/progress";
-import { Button } from "@base-ui/react";
-import { toast } from "sonner";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -15,6 +13,8 @@ function App() {
   const trpc = useTRPC();
   const userData = useQuery(trpc.getUser.queryOptions());
   const signIn = useMutation(signInOptions);
+  const validateTOTP = useMutation(trpc.getTOTP.mutationOptions());
+  const [totp, setTotp] = useState(false);
 
   if (userData.isLoading) {
     return (
@@ -24,7 +24,7 @@ function App() {
     );
   }
 
- if (!userData.data) {
+  if (!userData.data) {
     return (
       <div className="flex items-center justify-center flex-col gap-4">
         <h1 className="mt-5 pt-4 text-5xl text-kbackgrounddark font-bold">
@@ -40,6 +40,50 @@ function App() {
       </div>
     );
   }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("Submitting...");
+
+    // Create FormData object from the targeted form
+    const formData = new FormData(event.currentTarget);
+
+    // Pull the input value using its 'name' attribute
+    const userInputValue = String(formData.get("totp") ?? "").trim();
+
+    const validatedTOTP = await validateTOTP.mutateAsync({
+      userToken: userInputValue,
+    });
+    if (validatedTOTP) {
+      setTotp(true);
+      return;
+    }
+    console.log("Invalid Token somehow?");
+  };
+
+  if (!totp) {
+    return (
+      <div className="flex items-center justify-center flex-col gap-4">
+        <h1 className="mt-5 pt-4 text-5xl text-kbackgrounddark font-bold">
+          Chikorita Hit List
+        </h1>
+        <img src="chikorita.png" />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="totp"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            pattern="[0-9]{6}"
+            maxLength={6}
+            placeholder="Enter Totp"
+            className="bg-amber-500 rounded-2xl border-b p-2 px-12 cursor-pointer text-white text-2xl font-bold active:border-0 active:translate-y-1 transition-all duration-500"
+          ></input>
+        </form>
+      </div>
+    );
+  }
+
   return (
     <AppShell title="Home" desc="Choose where you want to go next.">
       <div className="mx-auto flex max-w-4xl flex-col gap-6">
@@ -84,9 +128,6 @@ function App() {
             </p>
           </Link>
         </div>
-         
-      
-         
       </div>
     </AppShell>
   );

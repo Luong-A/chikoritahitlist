@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UpdatesRouteImport } from './routes/updates'
+import { Route as TwoFactorRouteImport } from './routes/two-factor'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as Pickems2026RouteImport } from './routes/pickems2026'
@@ -24,6 +25,11 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 const UpdatesRoute = UpdatesRouteImport.update({
   id: '/updates',
   path: '/updates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TwoFactorRoute = TwoFactorRouteImport.update({
+  id: '/two-factor',
+  path: '/two-factor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/pickems2026': typeof Pickems2026Route
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
+  '/two-factor': typeof TwoFactorRoute
   '/updates': typeof UpdatesRoute
   '/api/healthcheck': typeof ApiHealthcheckRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/pickems2026': typeof Pickems2026Route
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
+  '/two-factor': typeof TwoFactorRoute
   '/updates': typeof UpdatesRoute
   '/api/healthcheck': typeof ApiHealthcheckRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/pickems2026': typeof Pickems2026Route
   '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
+  '/two-factor': typeof TwoFactorRoute
   '/updates': typeof UpdatesRoute
   '/api/healthcheck': typeof ApiHealthcheckRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/pickems2026'
     | '/profile'
     | '/settings'
+    | '/two-factor'
     | '/updates'
     | '/api/healthcheck'
     | '/api/auth/$'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/pickems2026'
     | '/profile'
     | '/settings'
+    | '/two-factor'
     | '/updates'
     | '/api/healthcheck'
     | '/api/auth/$'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/pickems2026'
     | '/profile'
     | '/settings'
+    | '/two-factor'
     | '/updates'
     | '/api/healthcheck'
     | '/api/auth/$'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   Pickems2026Route: typeof Pickems2026Route
   ProfileRoute: typeof ProfileRoute
   SettingsRoute: typeof SettingsRoute
+  TwoFactorRoute: typeof TwoFactorRoute
   UpdatesRoute: typeof UpdatesRoute
   ApiHealthcheckRoute: typeof ApiHealthcheckRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -180,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/updates'
       fullPath: '/updates'
       preLoaderRoute: typeof UpdatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/two-factor': {
+      id: '/two-factor'
+      path: '/two-factor'
+      fullPath: '/two-factor'
+      preLoaderRoute: typeof TwoFactorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   Pickems2026Route: Pickems2026Route,
   ProfileRoute: ProfileRoute,
   SettingsRoute: SettingsRoute,
+  TwoFactorRoute: TwoFactorRoute,
   UpdatesRoute: UpdatesRoute,
   ApiHealthcheckRoute: ApiHealthcheckRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

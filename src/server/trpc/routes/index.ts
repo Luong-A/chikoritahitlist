@@ -9,6 +9,7 @@ import {
   matchupOptions,
   pickemEntry,
   pickemPick,
+  totpSettings,
 } from "@/server/db/schema";
 import { authedProcedure, extractAuth } from "../middleware/auth-middleware";
 import { publicProcedure, router } from "../trpc-config";
@@ -27,6 +28,8 @@ import { z } from "zod";
 import { Buffer } from "buffer";
 import { TRPCError } from "@trpc/server";
 import { uploadObject } from "@/lib/r2";
+import { createZstdCompress } from "zlib";
+import { validateToken } from "@/lib/auth-client";
 
 export const appRouter = router({
   test: publicProcedure.query(async () => "Hi from the server!"),
@@ -43,6 +46,30 @@ export const appRouter = router({
     return ctx.db.select().from(season).orderBy(desc(season.startDate));
   }),
 
+  getTOTP: authedProcedure
+    .input(
+      z.object({
+        userToken: z.string().regex(/^\d{6}$/, "TOTP must be six digits"),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const keys = await ctx.db
+        .select({ key: totpSettings.totpSecret })
+        .from(totpSettings)
+        .limit(1);
+      const theKey = keys[0]?.key;
+
+      if (!theKey) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "TOTP secret is not configured.",
+        });
+      }
+
+      const validated = await validateToken(theKey, input.userToken);
+
+      return validated;
+    }),
   getBounties: authedProcedure
     .input(
       z.object({

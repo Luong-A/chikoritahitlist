@@ -168,7 +168,7 @@ function PickemsPage() {
                 <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center text-ksecondarylight">
                   Loading matchups...
                 </div>
-              ) : matchupsQuery.data?.length ? (
+              ) : (matchupsQuery.data?.length && (selectedPool?.endsAt! > new Date())) ? (
                 matchupsQuery.data.map((matchup) => {
                   const selectedOption = selectedByMatchup.get(matchup.id);
                   return (
