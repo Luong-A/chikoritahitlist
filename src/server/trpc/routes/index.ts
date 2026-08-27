@@ -10,6 +10,7 @@ import {
   pickemEntry,
   pickemPick,
   totpSettings,
+  session,
 } from "@/server/db/schema";
 import { authedProcedure, extractAuth } from "../middleware/auth-middleware";
 import { publicProcedure, router } from "../trpc-config";
@@ -37,6 +38,20 @@ export const appRouter = router({
   getUser: publicProcedure
     .use(extractAuth)
     .query(({ ctx }) => ctx.user ?? null),
+
+  getTOTPStatus: authedProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    const [currentSession] = await ctx.db
+      .select({ totpVerified: session.totpVerified })
+      .from(session)
+      .where(eq(session.token, ctx.session.token))
+      .limit(1);
+
+    return currentSession?.totpVerified ?? false;
+  }),
 
   getOffenders: authedProcedure.query(({ ctx }) => {
     return ctx.db.select().from(person);
@@ -67,6 +82,13 @@ export const appRouter = router({
       }
 
       const validated = await validateToken(theKey, input.userToken);
+
+      if (validated && ctx.session) {
+        await ctx.db
+          .update(session)
+          .set({ totpVerified: true })
+          .where(eq(session.token, ctx.session.token));
+      }
 
       return validated;
     }),

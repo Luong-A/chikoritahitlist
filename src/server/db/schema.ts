@@ -113,6 +113,9 @@ export const session = sqliteTable("session", {
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
+  totpVerified: integer("totp_verified", { mode: "boolean" })
+    .notNull()
+    .default(false),
 });
 
 export const account = sqliteTable("account", {

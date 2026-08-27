@@ -3,7 +3,7 @@ import { useTRPC } from "@/lib/trpc-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { signInOptions } from "@/lib/auth-client";
 import { AppShell } from "@/components/app-shell";
-import { useState } from "react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -12,9 +12,9 @@ export const Route = createFileRoute("/")({
 function App() {
   const trpc = useTRPC();
   const userData = useQuery(trpc.getUser.queryOptions());
+  const totpStatus = useQuery(trpc.getTOTPStatus.queryOptions());
   const signIn = useMutation(signInOptions);
   const validateTOTP = useMutation(trpc.getTOTP.mutationOptions());
-  const [totp, setTotp] = useState(false);
 
   if (userData.isLoading) {
     return (
@@ -55,13 +55,15 @@ function App() {
       userToken: userInputValue,
     });
     if (validatedTOTP) {
-      setTotp(true);
+      await totpStatus.refetch();
+      toast.success("Token Valid.")
       return;
     }
-    console.log("Invalid Token somehow?");
+    toast.error("Invalid Token. Try Again.");
+    
   };
 
-  if (!totp) {
+  if (!totpStatus.data) {
     return (
       <div className="flex items-center justify-center flex-col gap-4">
         <h1 className="mt-5 pt-4 text-5xl text-kbackgrounddark font-bold">
@@ -80,6 +82,8 @@ function App() {
             className="bg-amber-500 rounded-2xl border-b p-2 px-12 cursor-pointer text-white text-2xl font-bold active:border-0 active:translate-y-1 transition-all duration-500"
           ></input>
         </form>
+        
+        <div ></div>
       </div>
     );
   }

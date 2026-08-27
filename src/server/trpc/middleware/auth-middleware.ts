@@ -13,6 +13,7 @@ export const extractAuth = createTRPCMiddleware(async ({ ctx, next }) => {
   return next({
     ctx: {
       user: session?.user,
+      session: session?.session,
     },
   });
 });
@@ -27,6 +28,7 @@ export const authedProcedure = publicProcedure
     return next({
       ctx: {
         user: ctx.user,
+        session: ctx.session,
       },
     });
   });
