@@ -53,11 +53,7 @@ function UpdateComponent() {
         />
         <UpdatePost
           date={new Date("2026-06-30")}
-          additions={[
-            "Pickems Questions",
-            "Getting Started Page",
-           
-          ]}
+          additions={["Pickems Questions", "Getting Started Page"]}
           changes={[
             "Leaderboard Page changed to look a bit more busy rather than just a list",
           ]}
@@ -73,12 +69,21 @@ function UpdateComponent() {
             "Timer and feedback in Pickems",
             "Minor Visual Update to Season Tabs",
           ]}
-          changes={[
-            "Leaderboard Page overhaul",
-          ]}
+          changes={["Leaderboard Page overhaul"]}
           removals={["None"]}
           notes="I think in terms of what I can do visually I am done. Last major update this summer will likely be the Getting Started Page
            and then all of you will be seeing this."
+        />
+        <UpdatePost
+          date={new Date("2026-08-27")}
+          additions={[
+            "TOTP Basic Version",
+            "",
+            "Minor Visual Update to Season Tabs",
+          ]}
+          changes={["Pickems are now closed and will display correctly when closed"]}
+          removals={["None"]}
+          notes="Rough Visual Login but will refine later. Hopefully this is a better practice than google sign in."
         />
       </div>
     </AppShell>
