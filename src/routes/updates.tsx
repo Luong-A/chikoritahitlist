@@ -84,6 +84,14 @@ function UpdateComponent() {
           changes={["Pickems are now closed and will display correctly when closed"]}
           removals={["None"]}
           notes="Rough Visual Login but will refine later. Hopefully this is a better practice than google sign in."
+        /><UpdatePost
+          date={new Date("2026-09-05")}
+          additions={[
+            "Verify Button to TOTP Screen",
+          ]}
+          changes={["Fixed issue where phone users could not submit TOTP because there was no submit button."]}
+          removals={["None"]}
+          notes="Did not really think about phone users sorry - should be fixed now."
         />
       </div>
     </AppShell>

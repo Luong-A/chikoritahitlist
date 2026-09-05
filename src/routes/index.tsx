@@ -81,6 +81,7 @@ function App() {
             placeholder="Enter Totp"
             className="bg-amber-500 rounded-2xl border-b p-2 px-12 cursor-pointer text-white text-2xl font-bold active:border-0 active:translate-y-1 transition-all duration-500"
           ></input>
+          <button className="text-white hover:bg-amber-400 bg-amber-500 rounded-2xl p-2 m-4 cursor-pointer font:bold active:bg-kprimarylight active:translate-y-1 transition-all duration-500" type="submit">Verify</button>
         </form>
         
         <div ></div>
